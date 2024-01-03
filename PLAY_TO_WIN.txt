@@ -1,0 +1,473 @@
+from tkinter import *
+from tkinter.ttk import Progressbar
+from pygame import mixer
+import pyttsx3
+
+engine=pyttsx3.init()
+voices=engine.getProperty('voices')
+engine.setProperty('voice',voices[1].id)
+
+mixer.init()
+mixer.music.load(r"C:\Users\shrujani S\Downloads\kbc.mp3")
+mixer.music.play(-1)
+
+
+def select(event):
+    callbutton.place_forget()
+    progressbarA.place_forget()
+    progressbarB.place_forget()
+    progressbarC.place_forget()
+    progressbarD.place_forget()
+
+    progressbarlabelA.place_forget()
+    progressbarlabelB.place_forget()
+    progressbarlabelC.place_forget()
+    progressbarlabelD.place_forget()
+    b=event.widget
+    value=b['text']
+
+    for i in range(15):
+        if value==crt_ans[i]:
+            if value==crt_ans[14]:
+
+               def close():
+                   root2.destroy()
+                   root.destroy()
+
+               def playagain():
+                   lifeline50button.config(state=NORMAL,image=image50)
+                   audiencepolebutton.config(state=NORMAL,image=audiencepole)
+                   phoneimagebutton.config(state=NORMAL,image=phoneimage)
+                   root2.destroy()
+                   questionarea.delete(1.0,END)
+                   questionarea.insert(END,questions[0])
+
+                   optbtn1.config(text=first_option[0])
+                   optbtn2.config(text=second_option[0])
+                   optbtn3.config(text=third_option[0])
+                   optbtn4.config(text=fourth_option[0])
+
+                   l1.config(image=amountimage)
+
+                   mixer.music.stop()
+                   mixer.music.load(r"C:\Users\shrujani S\Downloads\Kbcwon.mp3")
+                   mixer.music.play()
+                
+               root2=Toplevel()
+               root2.overrideredirect(True)
+               root2.config(bg='black')
+               root2.geometry('500x400+140+30')
+               root2.title('You won 0 pounds')
+               l2=Label(root2,image=centerimage,bd=0)
+               l2.pack(pady=30)
+
+               winlabel=Label(root2,text='You Won',font=('arial',40,'bold'),bg='black',fg='white')
+               winlabel.pack()
+
+               playagainbtn=Button(root2,text='Play Again',font=('arial',20,'bold'),bg='black',fg='white',activebackground='black',activeforeground='white',bd=0,cursor='hand2',command=playagain)
+               playagainbtn.pack()
+
+               closebtn=Button(root2,text='Close',font=('arial',20,'bold'),bg='black',fg='white',activebackground='black',activeforeground='white',bd=0,cursor='hand2',command=close)
+               closebtn.pack()
+
+               happyimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\happy.png")
+               happylabel=Label(root2,image=happyimage,bg='black')
+               happylabel.place(x=30,y=280)
+            
+               happylabel=Label(root2,image=happyimage,bg='black')
+               happylabel.place(x=400,y=280)
+                                                                           
+
+               root2.mainloop()
+               break
+         
+        
+               
+            questionarea.delete(1.0,END)
+            questionarea.insert(END,questions[i+1])
+            
+            optbtn1.config(text=first_option[i+1])
+            optbtn2.config(text=second_option[i+1])
+            optbtn3.config(text=third_option[i+1])
+            optbtn4.config(text=fourth_option[i+1])
+            l1.config(image=amountImages[i])
+        if value not in crt_ans:
+            def close():
+                root1.destroy()
+                root.destroy()
+
+            def tryagain():
+                lifeline50button.config(state=NORMAL,image=image50)
+                audiencepolebutton.config(state=NORMAL,image=audiencepole)
+                phoneimagebutton.config(state=NORMAL,image=phoneimage)
+                root1.destroy()
+                questionarea.insert(END,questions[0])
+                questionarea.insert(END,questions[0])
+
+                optbtn1.config(text=first_option[0])
+                optbtn2.config(text=second_option[0])
+                optbtn3.config(text=third_option[0])
+                optbtn4.config(text=fourth_option[0])
+
+                l1.config(image=amountimage)
+                
+            root1=Toplevel()
+            root1.overrideredirect(True)
+            root1.config(bg='black')
+            root1.geometry('500x400+140+30')
+            root1.title('You won 0 pounds')
+            l2=Label(root1,image=centerimage,bd=0)
+            l2.pack(pady=30)
+
+            loselabel=Label(root1,text='You lose',font=('arial',40,'bold'),bg='black',fg='white')
+            loselabel.pack()
+
+            tryagainbtn=Button(root1,text='Try Again',font=('arial',20,'bold'),bg='black',fg='white',activebackground='black',activeforeground='white',bd=0,cursor='hand2',command=tryagain)
+            tryagainbtn.pack()
+
+            closebtn=Button(root1,text='Close',font=('arial',20,'bold'),bg='black',fg='white',activebackground='black',activeforeground='white',bd=0,cursor='hand2',command=close)
+            closebtn.pack()
+
+            sadimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\sad.png")
+            sadlabel=Label(root1,image=sadimage,bg='black')
+            sadlabel.place(x=30,y=280)
+            
+            sadlabel=Label(root1,image=sadimage,bg='black')
+            sadlabel.place(x=400,y=280)
+                                                                           
+
+            root1.mainloop()
+            break
+def lifeline50():
+    lifeline50button.config(image=image50X,state=DISABLED)
+    if questionarea.get(1.0,'end-1c')==questions[0]:
+        optbtn1.config(text='')
+        optbtn4.config(text='')
+    
+    if questionarea.get(1.0,'end-1c')==questions[1]:
+       optbtn1.config(text='')
+       optbtn3.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[2]:
+        optbtn2.config(text='')
+        optbtn4.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[3]:
+        optbtn2.config(text='')
+        optbtn3.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[4]:
+        optbtn2.config(text='')
+        optbtn4.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[5]:
+        optbtn1.config(text='')
+        optbtn4.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[6]:
+        optbtn1.config(text='')
+        optbtn2.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[7]:
+        optbtn2.config(text='')
+        optbtn3.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[8]:
+        optbtn1.config(text='')
+        optbtn2.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[9]:
+        optbtn1.config(text='')
+        optbtn2.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[10]:
+        optbtn2.config(text='')
+        optbtn3.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[11]:
+        optbtn1.config(text='')
+        optbtn4.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[12]:
+        optbtn3.config(text='')
+        optbtn4.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[13]:
+        optbtn1.config(text='')
+        optbtn3.config(text='')
+
+    if questionarea.get(1.0,'end-1c')==questions[14]:
+        optbtn1.config(text='')
+        optbtn4.config(text='')
+
+def audiencepolelifeline():
+    audiencepolebutton.config(image=audiencepoleX,state=DISABLED)
+    progressbarA.place(x=580,y=190)
+    progressbarB.place(x=620,y=190)
+    progressbarC.place(x=660,y=190)
+    progressbarD.place(x=700,y=190)
+
+    progressbarlabelA.place(x=580,y=320)
+    progressbarlabelB.place(x=620,y=320)
+    progressbarlabelC.place(x=660,y=320)
+    progressbarlabelD.place(x=700,y=320)
+
+    if questionarea.get(1.0,'end-1c')==questions[0]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=90)
+        progressbarC.config(value=50)
+        progressbarD.config(value=60)
+        
+    if questionarea.get(1.0,'end-1c')==questions[1]:
+        progressbarA.config(value=40)
+        progressbarB.config(value=90)
+        progressbarC.config(value=20)
+        progressbarD.config(value=10)
+
+    if questionarea.get(1.0,'end-1c')==questions[2]:
+        progressbarA.config(value=50)
+        progressbarB.config(value=60)
+        progressbarC.config(value=90)
+        progressbarD.config(value=30)
+
+    if questionarea.get(1.0,'end-1c')==questions[3]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=60)
+        progressbarC.config(value=50)
+        progressbarD.config(value=90)
+
+    if questionarea.get(1.0,'end-1c')==questions[4]:
+        progressbarA.config(value=90)
+        progressbarB.config(value=60)
+        progressbarC.config(value=50)
+        progressbarD.config(value=30)
+
+    if questionarea.get(1.0,'end-1c')==questions[5]:
+        progressbarA.config(value=20)
+        progressbarB.config(value=10)
+        progressbarC.config(value=90)
+        progressbarD.config(value=40)
+
+    if questionarea.get(1.0,'end-1c')==questions[6]:
+        progressbarA.config(value=50)
+        progressbarB.config(value=30)
+        progressbarC.config(value=90)
+        progressbarD.config(value=20)
+
+    if questionarea.get(1.0,'end-1c')==questions[7]:
+        progressbarA.config(value=20)
+        progressbarB.config(value=40)
+        progressbarC.config(value=50)
+        progressbarD.config(value=90)
+
+    if questionarea.get(1.0,'end-1c')==questions[8]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=70)
+        progressbarC.config(value=90)
+        progressbarD.config(value=60)
+
+    if questionarea.get(1.0,'end-1c')==questions[9]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=50)
+        progressbarC.config(value=70)
+        progressbarD.config(value=90)
+
+    if questionarea.get(1.0,'end-1c')==questions[10]:
+        progressbarA.config(value=40)
+        progressbarB.config(value=70)
+        progressbarC.config(value=50)
+        progressbarD.config(value=90)
+
+    if questionarea.get(1.0,'end-1c')==questions[11]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=90)
+        progressbarC.config(value=50)
+        progressbarD.config(value=20)
+
+    if questionarea.get(1.0,'end-1c')==questions[12]:
+        progressbarA.config(value=20)
+        progressbarB.config(value=90)
+        progressbarC.config(value=50)
+        progressbarD.config(value=60)
+
+    if questionarea.get(1.0,'end-1c')==questions[13]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=90)
+        progressbarC.config(value=40)
+        progressbarD.config(value=50)
+
+    if questionarea.get(1.0,'end-1c')==questions[14]:
+        progressbarA.config(value=30)
+        progressbarB.config(value=90)
+        progressbarC.config(value=60)
+        progressbarD.config(value=40)
+
+def phonelifeline():
+    mixer.music.load(r"C:\Users\shrujani S\Downloads\calling.mp3")
+    mixer.music.play()
+    callbutton.place(x=70,y=260)
+    phoneimagebutton.config(image=phoneimageX,state=DISABLED)
+
+def phoneclick():
+    for i in range(15):
+        if questionarea.get(1.0,'end-1c')==questions[i]:
+            engine.say(f'The answer is {crt_ans[i]}')
+            engine.runAndWait()
+    
+
+    
+crt_ans=["Jawaharlal Nehru","Pragyan","11 minutes","America","Wrestling","Bharat Ratna","Hyderabad","Kerala","Sarojini Naidu","Russia","1000 years","Bill Gates","Python","1950","Lithium"]
+
+
+    
+
+questions=["Who was the first prime minister of India?",
+           "What is the name of the rover module of Chandrayaan-3?",
+           "How much does smoking one cigarette shorten a person's life?",
+           "Whatsapp is a company of which country?",
+           "Which is the oldest game in India?",
+           "What is the name of the highest civilian award in India?",
+           "Which Indian city is known as the 'city of pearls'?",
+           "Which Indian state is known as the the 'God's Own Country'?",
+           "Who is known as the 'Nightingale Of India'?",
+           "Which is the largest country in the world?",
+           "How many years are there in one millenium?",
+           "Who founded microsoft?",
+           "Guido Van Rossum in 1991 designed which language?",
+           "In which year India celebrated its first republic day?",
+           "Which is the lightest metal?"]
+
+first_option=["Narendra Modi","Yutu","5 minutes","Japan","Wrestling","Padma Shri","Jaipur","Madhya Pradesh","M.S. Subbulakshmi","India","100 years","Monty Ritz","Javascript","1949","Zinc"]
+second_option=["Jawaharlal Nehru","Pragyan","6 minutes","China","Cricket","Padma Bhushan","Lucknow","Karnataka","Asha Bhosle","USA","50 years","Bill Gates","Python","1950","Lithium"]
+third_option=["Motilal Nehru","Curiosity","11 minutes","Korea","Hockey","Bharat Ratna","Hyderabad","Andhra Pradesh","Sarojini Naidu","China","500 years","Danis Lio","Java","1951","Platinum"]
+fourth_option=["Indira Gandhi","Opportunity","10 minutes","America","Kabaddi","Padma Vibhushan","Agra","Kerala","Shreya Ghoshal","Russia","1000 years","Jeff Bezos","C++","1952","Gold"]
+           
+           
+           
+
+root=Tk()
+root.geometry('1270x652+0+0')
+root.title('WHO WANTS TO BE A MILLIONAIRE')
+root.config(bg='black')
+
+leftframe=Frame(root,bg='black',padx=90)
+leftframe.grid(row=0,column=0)
+
+topframe=Frame(leftframe,bg='black',pady=15)
+topframe.grid()
+
+centerframe=Frame(leftframe,bg='black',pady=15)
+centerframe.grid(row=1,column=0)
+
+bottomframe=Frame(leftframe)
+bottomframe.grid(row=2,column=0)
+
+
+rightframe=Frame(root,pady=25,padx=50,bg='black')
+rightframe.grid(row=0,column=1)
+
+
+
+image50=PhotoImage(file=r"C:\Users\shrujani S\Downloads\50-50.png")
+image50X=PhotoImage(file=r"C:\Users\shrujani S\Downloads\50-50-X.png")
+label=Label(root,image=image50)
+
+lifeline50button=Button(topframe,image=image50,bg='black',bd=0,activebackground='black',width=180,height=80,command=lifeline50)
+lifeline50button.grid(row=0,column=0)
+
+audiencepole=PhotoImage(file=r"C:\Users\shrujani S\Downloads\audiencePole.png")
+label1=Label(root,image=audiencepole)
+audiencepoleX=PhotoImage(file=r"C:\Users\shrujani S\Downloads\audiencePoleX.png")
+audiencepolebutton=Button(topframe,image=audiencepole,bg='black',bd=0,activebackground='black',width=180,height=80,command=audiencepolelifeline)
+audiencepolebutton.grid(row=0,column=1)
+
+phoneimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\phoneAFriend.png")
+label2=Label(root,image=phoneimage)
+phoneimageX=PhotoImage(file=r"C:\Users\shrujani S\Downloads\phoneAFriendX.png")
+phoneimagebutton=Button(topframe,image=phoneimage,bg='black',bd=0,activebackground='black',width=180,height=80,command=phonelifeline)
+phoneimagebutton.grid(row=0,column=2)
+
+callimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\phone.png")
+callbutton=Button(root,image=callimage,bd=0,bg='black',activebackground='black',cursor='hand2',command=phoneclick)
+
+centerimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\center.png")
+label3=Label(centerframe,image=centerimage,bg='black',width=300,height=200)
+label3.grid(row=0,column=0)
+
+amountimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture0.png")
+amountimage1=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture1.png")
+amountimage2=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture2.png")
+amountimage3=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture3.png")
+amountimage4=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture4.png")
+amountimage5=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture5.png")
+amountimage6=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture6.png")
+amountimage7=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture7.png")
+amountimage8=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture8.png")
+amountimage9=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture9.png")
+amountimage10=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture10.png")
+amountimage11=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture11.png")
+amountimage12=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture12.png")
+amountimage13=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture13.png")
+amountimage14=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture14.png")
+amountimage15=PhotoImage(file=r"C:\Users\shrujani S\Downloads\Picture15.png")
+
+amountImages=[amountimage1,amountimage2,amountimage3,amountimage4,amountimage5,amountimage6,amountimage7,amountimage8,amountimage9,amountimage10,amountimage11,amountimage12,
+              amountimage13,amountimage14,amountimage15]
+
+
+l1=Label(rightframe,image=amountimage,bg='black')
+l1.grid(row=0,column=0)
+
+layoutimage=PhotoImage(file=r"C:\Users\shrujani S\Downloads\lay.png")
+label4=Label(bottomframe,image=layoutimage,bg='black')
+label4.grid(row=0,column=0)
+
+questionarea=Text(bottomframe,font=('arial',18,'bold'),width=34,height=2,wrap='word',bg='black',fg='white',bd=0)
+questionarea.place(x=70,y=10)
+
+questionarea.insert(END,questions[0])
+
+labelA=Label(bottomframe,text="A:",bg='black',fg='white',font=('arial',16,'bold'))
+labelA.place(x=60,y=110)
+
+optbtn1=Button(bottomframe,text=first_option[0],font=('arial',18,'bold'),bg='black',fg='white',bd=0,activebackground='black',activeforeground='white',cursor='hand2')
+optbtn1.place(x=100,y=100)
+
+
+labelB=Label(bottomframe,text="B:",bg='black',fg='white',font=('arial',16,'bold'))
+labelB.place(x=330,y=110)
+
+optbtn2=Button(bottomframe,text=second_option[0],font=('arial',18,'bold'),bg='black',fg='white',bd=0,activebackground='black',activeforeground='white',cursor='hand2')
+optbtn2.place(x=370,y=100)
+
+labelC=Label(bottomframe,text="C:",bg='black',fg='white',font=('arial',16,'bold'))
+labelC.place(x=60,y=190)
+
+optbtn3=Button(bottomframe,text=third_option[0],font=('arial',18,'bold'),bg='black',fg='white',bd=0,activebackground='black',activeforeground='white',cursor='hand2')
+optbtn3.place(x=100,y=180)
+
+labelD=Label(bottomframe,text="D:",bg='black',fg='white',font=('arial',16,'bold'))
+labelD.place(x=330,y=190)
+
+optbtn4=Button(bottomframe,text=fourth_option[0],font=('arial',18,'bold'),bg='black',fg='white',bd=0,activebackground='black',activeforeground='white',cursor='hand2')
+optbtn4.place(x=370,y=180)
+
+progressbarA=Progressbar(root,orient=VERTICAL,length=120)
+progressbarB=Progressbar(root,orient=VERTICAL,length=120)
+progressbarC=Progressbar(root,orient=VERTICAL,length=120)
+progressbarD=Progressbar(root,orient=VERTICAL,length=120)
+
+progressbarlabelA=Label(root,text='A',font=('arial',20,'bold'),bg='black',fg='white')
+progressbarlabelB=Label(root,text='B',font=('arial',20,'bold'),bg='black',fg='white')
+progressbarlabelC=Label(root,text='C',font=('arial',20,'bold'),bg='black',fg='white')
+progressbarlabelD=Label(root,text='D',font=('arial',20,'bold'),bg='black',fg='white')
+
+
+optbtn1.bind('<Button-1>',select)
+optbtn2.bind('<Button-1>',select)
+optbtn3.bind('<Button-1>',select)
+optbtn4.bind('<Button-1>',select)
+
+
+root.mainloop()
+
